@@ -57,10 +57,10 @@ qr_svg.pipe(fs.createWriteStream(tempFilePath));
   
     // Save the URL to a text file
 
-    let tempFilePath = path.join("/tmp", "URL.txt");
+    let tempURLfile = path.join("/tmp", "URL.txt");
 
 
-fs.writeFile(tempFilePath, url, (err) => {
+fs.writeFile(tempURLfile, url, (err) => {
     if (err) {
         console.error("Error saving URL to file:", err);
         return res.status(500).send("Error generating QR code");
