@@ -82,6 +82,16 @@ app.get('/:shortId', async (req, res) => {
   }
 });
 
+app.get("/qr_image.png", (req, res) => {
+    const filePath = "/tmp/qr_image.png";
+    if (fs.existsSync(filePath)) {
+        res.sendFile(filePath);
+    } else {
+        res.status(404).send("QR Code not found");
+    }
+});
+
+
 
 app.use(express.static("."));
 module.exports = app;
