@@ -80,6 +80,7 @@ app.get('/:shortId', async (req, res) => {
   }
 });
 
+app.get('/favicon.ico', (req, res) => res.status(204).end());
 
 
 app.use(express.static("."));
