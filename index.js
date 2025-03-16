@@ -14,6 +14,8 @@ const staticRoute = require("./routers/staticRouter");
 const app = express();
 const PORT =process.env.PORT|| 8000;
 
+
+app.get('/favicon.ico', (req, res) => res.status(204).end());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
@@ -79,8 +81,6 @@ app.get('/:shortId', async (req, res) => {
       return res.status(500).send('Internal Server Error');
   }
 });
-
-app.get('/favicon.ico', (req, res) => res.status(204).end());
 
 
 app.use(express.static("."));
