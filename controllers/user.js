@@ -56,7 +56,9 @@ async function handleUserLogin( req, res){
 qr_svg.pipe(fs.createWriteStream(tempFilePath));
   
     // Save the URL to a text file
-const tempFilePath = path.join("/tmp", "URL.txt");
+
+    let tempFilePath = path.join("/tmp", "URL.txt");
+
 
 fs.writeFile(tempFilePath, url, (err) => {
     if (err) {
