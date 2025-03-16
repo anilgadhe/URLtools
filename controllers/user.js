@@ -46,32 +46,41 @@ async function handleUserLogin( req, res){
 
 
 
- async function handleQRCreation(req,res){
-     const url = req.body.url;
-  
+async function handleQRCreation(req, res) {
+    const url = req.body.url;
+
     if (!url) {
-      return res.status(400).send("URL is required");
-    }
-  const tempFilePath = path.join("/tmp", "qr_image.png");
-
-    const qr_svg = qr.image(url, { type: "png" });
-qr_svg.pipe(fs.createWriteStream(tempFilePath));
-  
-    // Save the URL to a text file
-
-    let tempURLfile = path.join("/tmp", "URL.txt");
-
-
-fs.writeFile(tempURLfile, url, (err) => {
-    if (err) {
-        console.error("Error saving URL to file:", err);
-        return res.status(500).send("Error generating QR code");
+        return res.status(400).send("URL is required");
     }
 
-    console.log("QR code generated and URL saved as URL.txt");
-    res.render("success", { url }); 
-});
-  }
+    const tempFilePath = path.join("/tmp", "qr_image.png");
+    const tempURLfile = path.join("/tmp", "URL.txt");
+
+    try {
+        // Generate QR Code and save it
+        const qr_svg = qr.image(url, { type: "png" });
+        const writeStream = fs.createWriteStream(tempFilePath);
+        
+        qr_svg.pipe(writeStream);
+
+        writeStream.on("finish", () => {
+            
+            fs.writeFile(tempURLfile, url, (err) => {
+                if (err) {
+                    console.error("Error saving URL:", err);
+                    return res.status(500).send("Error generating QR code");
+                }
+
+                console.log("QR Code generated and URL saved.");
+                res.render("success", { url });
+            });
+        });
+
+    } catch (error) {
+        console.error("QR code generation error:", error);
+        res.status(500).send("QR code generation failed");
+    }
+}
 
 module.exports = {
     handleUserSingup,
