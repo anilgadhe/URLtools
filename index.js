@@ -83,7 +83,4 @@ app.get('/:shortId', async (req, res) => {
 
 
 app.use(express.static("."));
-
-  app.listen(PORT, ()=>{
-    console.log("server is running on 8000");
-  })
+module.exports = app;
