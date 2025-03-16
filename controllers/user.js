@@ -50,20 +50,23 @@ async function handleUserLogin( req, res){
     if (!url) {
       return res.status(400).send("URL is required");
     }
-  
+  const tempFilePath = path.join("/tmp", "qr_image.png");
+
     const qr_svg = qr.image(url, { type: "png" });
-    qr_svg.pipe(fs.createWriteStream("./public/qr_image.png"));
+qr_svg.pipe(fs.createWriteStream(tempFilePath));
   
     // Save the URL to a text file
-    fs.writeFile("URL.txt", url, (err) => {
-      if (err) {
+const tempFilePath = path.join("/tmp", "URL.txt");
+
+fs.writeFile(tempFilePath, url, (err) => {
+    if (err) {
         console.error("Error saving URL to file:", err);
         return res.status(500).send("Error generating QR code");
-      }
-  
-      console.log("QR code generated and saved as qr_image.png");
-      res.render("success", { url }); 
-    });
+    }
+
+    console.log("QR code generated and URL saved as URL.txt");
+    res.render("success", { url }); 
+});
   }
 
 module.exports = {
