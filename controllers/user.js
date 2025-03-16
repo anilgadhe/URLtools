@@ -2,6 +2,8 @@
 const User = require("../modules/user");
 const {setUser} = require("../service/auth");
 const fs = require("fs");
+const path = require("path");
+
 const qr = require("qr-image");
 
 
