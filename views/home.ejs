@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+    <%- include('partials/head') %>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>home page</title>
+</head>
+<body>
+  <main class="maindiv">
+    
+    
+ 
+      <%- include('partials/nav') %>
+      
+      <h1>MAKE QRs AND SHORT-URLs</h1>
+      <div  class="container">
+       
+        <div class="urlshort">
+          <h1>URL Shortener</h1>
+      <% if (locals.id){%>
+    <p> URL Generated:http://localhost:8000/<%= id %></p>
+      <% } %>
+          <div class="Urlform">
+            <form method="POST" action="/url">
+                <label >Enter your Original URL</label>
+                <br>
+                <input type="text" name="url" placeholder="http://example.com"  />
+                <br>
+                <button class="btn" type="submit">Generate</button>
+            </form>
+          </div>
+    
+          <div>
+          <% if (locals.urls) { %>
+           <table>
+            <thead>
+            <th>s.NO</th>
+            <th>shortId</th>
+            <th>Redirect</th>
+            <th>Clicks</th>
+            </thead>
+            <tbody>
+             
+              <% urls.forEach((url, index) => { %>
+                <tr>
+                <td><%= index + 1  %></td>
+                <td><%= url.shortId  %></td>
+                <td><%= url.redirectURL %></td>
+                <td><%= url.visitHistory.length %></td>
+              </tr>
+              <% }) %>
+    
+           
+            </tbody>
+            
+           </table>
+          <% } %>
+        </div>
+      </div>
+    
+        <div class="qrcode">
+          <h1>QR Code Generator</h1>
+          <div class="QRform">
+          <form action="/generate-qr" method="POST">
+            <label for="url">Enter URL:</label>
+            <br>
+            <input type="text" id="url" name="url" placeholder="https://example.com" required>
+            <br>
+            <button class="btn" type="submit">Generate QR Code</button>
+          </form>
+        </div>
+        </div>
+      </div>
+   
+  </main>
+  <%- include('partials/script') %>
+</body>
+</html>
