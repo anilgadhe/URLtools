@@ -1,64 +1,84 @@
 <style>
 
-    h1{
+      h1{
       font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
       text-align: center;
-      font-size:50px ;
+      font-size: 40px; /* Adjusted for smaller screens */
     }
      .maindiv{
       font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-       height: 100vh;
+       min-height: 100vh;
        width:100%;
        background-color:#fff;
+       padding: 20px;
      }
     
      .container{
       display: flex;
-      gap: 40px;
-      
+      gap: 20px;
       justify-content: center;
-      height: 550px;
-      
+      height: auto;
+      flex-wrap: wrap; /* Ensures stacking on smaller screens */
      }
 
-     .Urlform .btn{
+     .Urlform .btn, .QRform .btn{
       background-color: rgb(89, 155, 89);
       border: 1px solid black;
       border-radius: 10px;
+      width: 100%; /* Full width for mobile */
+      padding: 10px;
      }
 
-   .QRform .btn{
-      background-color: #599b59;
-      border: 1px solid black;
-      border-radius: 10px;
-    }
-
-     .urlshort{
+     .urlshort, .qrcode{
       border: 3px solid black;
       border-radius: 20px;
       padding: 20px;
-      margin: 20px;
-     }
-
-     .qrcode{
-      border: 3px solid black;
-      border-radius: 20px;
-      padding: 20px;
-      margin: 20px;
+      margin: 10px;
+      width: 100%;
+      max-width: 400px; /* Restrict width on larger screens */
      }
       
-     .Urlform{
-      font-size:30px ;
-     }
-     
-
-     .QRform{
-      font-size:30px ;
+     .Urlform, .QRform{
+      font-size: 24px; /* Slightly smaller for readability */
      }
 
-     .urlshort label{
-      size: 50px;
+     .urlshort label, .qrcode label{
+      font-size: 18px;
      }
+
+     input[type="text"], input[type="password"], input[type="email"] {
+      width: 100%;
+      padding: 8px;
+      margin: 5px 0;
+      font-size: 16px;
+     }
+
+     table {
+      width: 100%;
+      font-size: 14px; /* Adjusted for small screens */
+     }
+
+     th, td {
+      padding: 8px;
+      text-align: left;
+     }
+
+     @media (max-width: 768px) {
+      h1 {
+        font-size: 32px;
+      }
+      .container {
+        flex-direction: column;
+        align-items: center;
+      }
+      .urlshort, .qrcode {
+        width: 90%;
+      }
+      table {
+        font-size: 12px;
+      }
+     }
+
   </style>
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
