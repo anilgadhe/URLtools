@@ -17,7 +17,7 @@ async function handlegenerateNewShortUrl(req,res) {
    });
       
    return res.render("home",{
-    id:shortID,
+    id: `https://qr-urlshortner.vercel.app/${shortID}`,
    });
 }
 
