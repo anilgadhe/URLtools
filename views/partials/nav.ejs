@@ -17,10 +17,11 @@
 
         <% if (locals.user) { %>
           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle fw-bold fs-5" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              <%= user.name %>
+            <a class="nav-link dropdown-toggle fw-bold fs-5" href="#" id="userDropdown" role="button"
+               data-bs-toggle="dropdown" aria-expanded="false">
+              <%= locals.user.name %>
             </a>
-            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+            <ul class="dropdown-menu dropdown-menu-end position-static" aria-labelledby="userDropdown">
               <li><a class="dropdown-item" href="/user/logout">Logout</a></li>
             </ul>
           </li>
@@ -47,4 +48,18 @@
     }
   }
 </style>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- Manually Initialize Bootstrap Dropdown (Fix for Mobile) -->
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    var dropdownElementList = [].slice.call(document.querySelectorAll('.dropdown-toggle'));
+    dropdownElementList.forEach(function (dropdownToggleEl) {
+      new bootstrap.Dropdown(dropdownToggleEl);
+    });
+  });
+</script>
+
 
