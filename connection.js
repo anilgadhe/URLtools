@@ -3,7 +3,7 @@ const mongoose = require("mongoose")
 
 async function connectDb (url){
 
-   mongoose.connect(url, {
+ return await  mongoose.connect(url, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
   serverSelectionTimeoutMS: 5000, // Lower timeout for faster failover
