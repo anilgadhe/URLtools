@@ -32,12 +32,11 @@
 <body>
   <div class="QRimg">
     <h1>QR Code Generated!</h1>
-    
-    <img src="/qr_image.png" alt="QR Code" id="qrImage">
+    <img src="<%= qrBase64 %>" alt="QR Code" id="qrImage">
    
     <p>URL: <%= url %></p>
-
-    <a href="/qr_image.png" download="/qr_image.png" class="download-btn">
+  <a href="<%= qrBase64 %>" download="qr_code.png" class="download-btn">
+    
       Download QR Code
     </a>
   </div>
