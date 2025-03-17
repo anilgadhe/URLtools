@@ -30,6 +30,7 @@
   <title>QR Code Generated</title>
 </head>
 <body>
+<%- include('partials/nav') %>
   <div class="QRimg">
     <h1>QR Code Generated!</h1>
     <img src="<%= qrBase64 %>" alt="QR Code" id="qrImage">
@@ -40,5 +41,6 @@
       Download QR Code
     </a>
   </div>
+<%- include('partials/script') %>
 </body>
 </html>
