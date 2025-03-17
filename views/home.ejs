@@ -21,7 +21,7 @@
         <div class="urlshort">
           <h1>URL Shortener</h1>
       <% if (locals.id){%>
-    <p> URL Generated:http://localhost:8000/<%= id %></p>
+      <p> URL Generated: <a href="<%= id %>" target="_blank"><%= id %></a></p>
       <% } %>
           <div class="Urlform">
             <form method="POST" action="/url">
