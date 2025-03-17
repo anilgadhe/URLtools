@@ -52,17 +52,17 @@ async function handleQRCreation(req, res) {
     if (!url) {
         return res.status(400).send("URL is required");
     }
+   
+    // Generate QR code as base64
+    const qr_svg = qr.imageSync(url, { type: "png" });
+    const qrBase64 = `data:image/png;base64,${qr_svg.toString("base64")}`;
 
-    const tempFilePath = path.join("/tmp", "qr_image.png");
+    res.render("success", { url, qrBase64 });
+   
     const tempURLfile = path.join("/tmp", "URL.txt");
 
     try {
-        // Generate QR Code and save it
-        const qr_svg = qr.image(url, { type: "png" });
-        const writeStream = fs.createWriteStream(tempFilePath);
-        
-        qr_svg.pipe(writeStream);
-
+       
         writeStream.on("finish", () => {
             
             fs.writeFile(tempURLfile, url, (err) => {
