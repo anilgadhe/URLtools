@@ -71,7 +71,6 @@
     const userLoggedIn = <%= user ? 'true' : 'false' %>;
 
     if (!userLoggedIn) {
-      alert("You should first to create shortURL or QR");
       window.location.href = "/login";
       return;
     }

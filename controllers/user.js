@@ -4,7 +4,6 @@ const {setUser} = require("../service/auth");
 
 
 
-
 async function handleUserSingup( req, res){
    const {name , email , password} = req.body ;
    await User.create({
@@ -12,37 +11,33 @@ async function handleUserSingup( req, res){
     email,
     password
    });
-  
    return res.render("login");
-
 
 }
 
-async function handleUserLogin( req, res){
-    const { email , password} = req.body ;
-   try {  
-     const user = await User.matchPassword(email, password);
-     
+ async function handleUserLogin(req, res) {
+  const { email, password } = req.body;
+  try {
+    const user = await User.matchPassword(email, password);
 
-     const token =setUser( user);
+    const token = setUser(user);
+    res.cookie("uid", token);
 
-     res.cookie("uid", token);
-
-     const loggedInUser = await User.findById(req.user._id);
-
-    return res.render("home",{
-      user:loggedInUser,
+    // No need to findById again. You already have user!
+    return res.render("home", {
+      user: user,
     });
-   } catch (error) {
-    return res.render("login",{
-      error:"incorrect Email or password",
-    })
-   }
- }
+  } catch (error) {
+    return res.render("login", {
+      error: "incorrect Email or password",
+    });
+  }
+}
+
 
  async function getLogin(req,res){
  
-  return res.render("login");
+ return  res.render('login');
  }
 
  async function getSignup(req,res){

@@ -1,28 +1,32 @@
 <% layout("layouts/boilerplate") %>
+
 <body>
-    <div class="contaner mt-5">
+    <div class="container mt-5">
         <div class="login-card card shadow-lg p-4">
-     <h1 class="text-center mb-4">Signup Page</h1>
-    
-      <form action="/signup" method="POST">
-        <div class="mb-4">
-            <label class="form-label" for="name">Username:</label>
-            <input  class="form-control"  type="text" id="username" name="name" required>
+            <h1 class="text-center mb-4">Signup Page</h1>
+            
+            <form action="/signup" method="POST">
+                <!-- Username Field -->
+                <div class="mb-4">
+                    <label class="form-label" for="name">Username:</label>
+                    <input class="form-control" type="text" id="name" name="name" required>
+                </div>
+
+                <!-- Email Field -->
+                <div class="mb-4">
+                    <label class="form-label" for="email">Email:</label>
+                    <input class="form-control" type="email" id="email" name="email" required>
+                </div>
+
+                <!-- Password Field -->
+                <div class="mb-4">
+                    <label class="form-label" for="password">Password:</label>
+                    <input class="form-control" type="password" id="password" name="password" required>
+                </div>
+
+                <!-- Submit Button -->
+                <button class="btn btn-primary w-100" type="submit">Sign Up</button>
+            </form>
         </div>
-        
-        <div class="mb-4">
-           <label class="form-label" for="name">Username:</label>
-           <input  class="form-control"  type="text" id="username" name="name" required>
-       </div>
-        
-        <div class="mb-4">
-            <label class="form-label" for="name">Username:</label>
-            <input  class="form-control"  type="text" id="username" name="name" required>
-        </div>
-        
-        <button class="btn btn-primary w-100" type="submit">Sign Up</button>
-    </form>
-</div>
-</div>
-</div>
+    </div>
 </body>

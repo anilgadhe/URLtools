@@ -8,7 +8,8 @@ const { restrictToLoggedinUserOnly, checkAuth } = require("../middlewares/auth")
 router.get('/',checkAuth, async (req, res) => {
   try {
       if(!req.user){
-        res.render("home",{ user: null, urls: [] });
+        
+        res.render("home",{ user: null, urls: [] ,cookies: req.cookies });
       }else{
       // Fetch URLs created by the user
       const allUrls = await URL.find({ createdBy: req.user._id });

@@ -3,7 +3,8 @@ const mongoose = require("mongoose")
 
 async function connectDb (url){
 
-    return await mongoose.connect(url);
+ return await  mongoose.connect(url);
+
 
 }
 
