@@ -1,3 +1,4 @@
+
 <nav class="navbar navbar-expand-lg bg-body-tertiary" data-bs-theme="dark">
   <div class="container-fluid">
     <a class="navbar-brand" href="#">Make QR/URLshort</a>
@@ -10,7 +11,7 @@
         <li class="nav-item">
           <a class="nav-link fw-bold fs-5" aria-current="page" href="/">Home</a>
         </li>
-        <% if (locals.user) { %>
+        <% if (typeof user !== 'undefined' && user) { %>
          
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle fw-bold fs-5" href="#" role="button" data-bs-toggle="dropdown" 
@@ -18,12 +19,12 @@
               <%= user.name %>
             </a>
             <ul class="dropdown-menu" data-bs-theme="dark">
-              <li><a class="dropdown-item" href="/user/logout">Logout</a></li>
+              <li><a class="dropdown-item" href="/logout">Logout</a></li>
             </ul>
           </li>
         <% } else { %>
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="/signup">Create Account</a>
+            <a class="nav-link active" aria-current="page" href="/signup">Register</a>
           </li>
           <li class="nav-item">
             <a class="nav-link active" aria-current="page" href="/login">Login</a>

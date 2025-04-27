@@ -2,10 +2,11 @@ require('dotenv').config()
 const express = require("express");
 const path = require("path");
 const cookieParser = require("cookie-parser");
+const ejsMate = require("ejs-mate");
 const {restrictToLoggedinUserOnly, checkAuth } = require("./middlewares/auth")
 const {connectDb}= require("./connection");
-const URL = require('./modules/url');
-
+const qrRoute = require("./routers/qr")
+const ExpressError =require("./utils/expressError")
 const urlRoute = require("./routers/url")
 const userRoute= require("./routers/user");
 const staticRoute = require("./routers/staticRouter");
@@ -24,64 +25,36 @@ connectDb(process.env.MONGO_URL).then(()=>{
   console.log("mongoDB is connected")
 });
 
- app.use(checkAuth);
-app.use("/user",userRoute);      
+
+
+
+ app.use(checkAuth);      
  app.use("/",userRoute);
- app.use("/url", urlRoute);
- app.use("/",staticRoute);
+ app.use("/url",restrictToLoggedinUserOnly, urlRoute);
+ app.use("/", staticRoute);
+ app.use("/",qrRoute)
 
 
-
-app.set('view engine', 'ejs');
-app.set('views',path.resolve('./views'));
-
-
-
-
-// app.get('/',restrictToLoggedinUserOnly, async (req,res)=>{
-//   const loggedInUser = await User.findById(req.user._id);
-
-//   if (!req.user) {
-//     console.log("ERROR: req.user is undefined in route!");
-// }
-//  return res.render("home",{
-
-//   user: loggedInUser,
-//  });
-// });
+ app.set('view engine', 'ejs');
+ app.set('views',path.resolve('./views'));
+ app.engine('ejs',ejsMate);
+ 
 
 
-
-
-app.get('/:shortId', async (req, res) => {
-  const shortId = req.params.shortId;
-  try {
-      // Find the entry and update visitHistory
-      const entry = await URL.findOneAndUpdate(
-          { shortId },
-          { 
-              $push: {
-                  visitHistory: { timestamp: Date.now() }
-              }
-          },
-          { new: true }  // Ensure the updated document is returned
-      );
-
-      // Check if entry is found and redirectedURL exists
-      if (entry && entry.redirectedURL) {
-          return res.redirect(entry.redirectedURL);
-      } else {
-          
-          return res.status(404).send('Short URL not found');
-      }
-  } catch (err) {
-      console.log("ERROR-", err);
-      return res.status(500).send('Internal Server Error');
-  }
+app.all("*",(req,res,next)=>{
+  next(new ExpressError(404 ,"Page Not Found!"));
+  
 });
 
+app.use((err,req,res,next)=>{
+  let {statusCode=500,message="something went wrong"}= err;
+  // res.status(statusCode).send(message);
+  res.status(statusCode).render("error", { message });
+
+})
 
 
-app.use(express.static("."));
-
-  module.exports = app;
+app.listen(PORT,()=>{
+    console.log(`server is live on ${PORT}`);
+    
+});

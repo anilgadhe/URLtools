@@ -38,7 +38,7 @@ userSchema.pre("save", function(next){
     next();
 });
 
-userSchema.static("matchPassword", async function(email ,password){
+userSchema.statics.matchPassword = async function(email, password) {
     const user = await this.findOne({email});
 
     if (!user) throw new Error ('User not found!');
@@ -53,7 +53,7 @@ userSchema.static("matchPassword", async function(email ,password){
     if(hashedPassword !== userProvidedHash) throw new Error("Incorrect password");
 
     return user;
-});
+};
 
  const User = model('user',userSchema);
 

@@ -1,45 +1,22 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <style>
-    .QRimg {
-      min-height: 100px;
-      width: 100%;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-    }
-    .download-btn {
-      margin-top: 20px;
-      padding: 10px 20px;
-      background-color: #4CAF50;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      text-decoration: none;
-      font-size: 16px;
-    }
-    .download-btn:hover {
-      background-color: #45a049;
-    }
-  </style>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>QR Code Generated</title>
-</head>
+<% layout("layouts/boilerplate") %>
 <body>
-  <div class="QRimg">
-    <h1>QR Code Generated!</h1>
+  <div class="container text-center ">
+    <div class="row align-item-center">
+      <h1>QR Code Generated!</h1>
     
-    <img src="../qr_image.png" alt="QR Code" id="qrImage">
-   
-    <p>URL: <%= url %></p>
-
-    <a href="../qr_image.png" download="qr_image.png" class="download-btn">
-      Download QR Code
-    </a>
+      <div class="col-12">
+        <img src="../qr_image.png" alt="QR Code" id="qrImage">
+      </div>
+     
+       <div class="col-12">  
+      <p>URL: <%= url %></p>
+       </div>
+        <div class="col-12">
+          <a href="../qr_image.png" download="qr_image.png" class="btn btn-success">
+            Download QR Code
+          </a>
+        </div>
+    </div>
   </div>
 </body>
-</html>
+

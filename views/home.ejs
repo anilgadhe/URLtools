@@ -1,81 +1,82 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  
-    <%- include('partials/head') %>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <title>home page</title>
-</head>
-<body>
-  <main class="maindiv">
-    
-    
- 
-      <%- include('partials/nav') %>
-      
-      <h1>MAKE QRs AND SHORT-URLs</h1>
-      <div  class="container">
-       
-        <div class="urlshort">
-          <h1>URL Shortener</h1>
-      <% if (locals.id){%>
-    <p> URL Generated:http://qr-urlshortner.vercel.app/<%= id %></p>
-      <% } %>
-          <div class="Urlform">
-            <form method="POST" action="/url">
-                <label >Enter your Original URL</label>
-                <br>
-                <input type="text" name="url" placeholder="http://example.com"  />
-                <br>
-                <button class="btn" type="submit">Generate</button>
-            </form>
+<% layout("layouts/boilerplate") %>
+
+<main class="maindiv py-5">
+  <h1>MAKE QRs AND SHORT-URLs</h1>
+
+  <div class="container d-flex flex-wrap justify-content-center gap-4">
+
+    <div class="urlshort shadow-sm bg-white p-4">
+      <h1 class="text-center mb-4">URL Shortener</h1>
+      <% if (typeof id !== 'undefined' && id){ %>
+        <p><strong>URL Generated:</strong> http://localhost:8000/url/<%= id %></p>
+        <% } %>
+      <div class="Urlform">
+        <form id="urlForm" method="POST" action="/url">
+          <div class="mb-3">
+            <label for="url">Enter your Original URL</label><br>
+            <input type="text" class="form-control" name="url" placeholder="http://example.com" />
           </div>
-    
-          <div>
-          <% if (locals.urls) { %>
-           <table>
-            <thead>
-            <th>s.NO</th>
-            <th>shortId</th>
-            <th>Redirect</th>
-            <th>Clicks</th>
+         
+          <button class="btn w-100" type="button" onclick="checkLoginAndSubmit('urlForm')">Generate</button>
+          
+        </form>
+      </div>
+
+      <div class="analytics-box mt-4">
+        
+          <table class="table table-bordered table-striped">
+            <thead class="table-headings">
+              <tr>
+                <th>S.NO</th>
+                <th>shortId</th>
+                <th>Redirect</th>
+                <th>Clicks</th>
+              </tr>
             </thead>
+            <% if (typeof urls !== 'undefined' && urls) { %>
             <tbody>
              
               <% urls.forEach((url, index) => { %>
                 <tr>
-                <td><%= index + 1  %></td>
-                <td><%= url.shortId  %></td>
-                <td><%= url.redirectURL %></td>
-                <td><%= url.visitHistory.length %></td>
-              </tr>
+                  <td><%= index + 1 %></td>
+                  <td><%= url.shortId %></td>
+                  <td><%= url.redirectURL %></td>
+                  <td><%= url.visitHistory.length %></td>
+                </tr>
               <% }) %>
-    
-           
             </tbody>
-            
-           </table>
-          <% } %>
-        </div>
+            <% } %>
+          </table>
       </div>
+    </div>
+
+    <div class="qrcode shadow-sm bg-white p-4">
+      <h1 class="text-center mb-4">QR Code Generator</h1>
+      <div class="QRform">
+        <form id="qrForm"  action="/qrcode" method="POST">
+          <div class="mb-3">
+            <label for="url">Enter URL</label><br>
+            <input type="text" class="form-control" id="url" name="url" placeholder="https://example.com" required>
+          </div>
+          <button class="btn w-100" type="button" onclick="checkLoginAndSubmit('qrForm')">Generate QR Code</button>
+        </form>
+      </div>
+    </div>
+
+  </div>
+</main>
+<script>
+  function checkLoginAndSubmit(formId) {
+  
+    const userLoggedIn = <%= user ? 'true' : 'false' %>;
+
+    if (!userLoggedIn) {
+      alert("You should first to create shortURL or QR");
+      window.location.href = "/login";
+      return;
+    }
     
-        <div class="qrcode">
-          <h1>QR Code Generator</h1>
-          <div class="QRform">
-          <form action="/generate-qr" method="POST">
-            <label for="url">Enter URL:</label>
-            <br>
-            <input type="text" id="url" name="url" placeholder="https://example.com" required>
-            <br>
-            <button class="btn" type="submit">Generate QR Code</button>
-          </form>
-        </div>
-        </div>
-      </div>
-   
-  </main>
-  <%- include('partials/script') %>
-</body>
-</html>
+    // If logged in, submit the form
+    document.getElementById(formId).submit();
+  }
+</script>
