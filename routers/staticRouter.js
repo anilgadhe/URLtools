@@ -11,7 +11,7 @@ router.get('/',checkAuth, async (req, res) => {
         
         res.render("home",{ user: null, urls: [] ,cookies: req.cookies });
       }else{
-      // Fetch URLs created by the user
+     
       const allUrls = await URL.find({ createdBy: req.user._id });
       
       const loggedInUser = await User.findById(req.user._id);

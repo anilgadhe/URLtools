@@ -1,28 +1,48 @@
 <% layout("layouts/boilerplate") %>
 
-<main class="maindiv py-5">
-  <h1>MAKE QRs AND SHORT-URLs</h1>
+<main class="maindiv mb-5 mt-5 " style="background-color: #1E272E;">
+ 
+<div class=" d-flex flex-wrap justify-content-around  mb-5 ">
 
-  <div class="container d-flex flex-wrap justify-content-center gap-4">
+<div>
+<span style="font-size: 70px; ; color: #7C90F8;" class="box-shadow fw-bold">Make your Lengthy</span>
+<br>
+<span style="font-size: 50px; ; color: white;" class="box-shadow fw-bold mb-4">URL Short</span>
 
-    <div class="urlshort shadow-sm bg-white p-4">
-      <h1 class="text-center mb-4">URL Shortener</h1>
+<p class="mt-5 fs-4" style="color: #AAB4BE;">
+We simplify your lengthy URLs by creating short, easy-to-use links.<br>
+Simply provide your URL in the format:<br>
+<span style="color: white;">https://www.your-domainname.com/</span><br>
+
+We will generate a concise link like:<br>
+<span style="color:white;">https://urltools.onrender.com/url/shortId</span><br>
+
+Effortless sharing, professional results.<br> 
+</p>
+</div>
+
+  <div class="card text-center shadow-lg  bg-body-white rounded mt-5">
+  <div class="card-header">
+    URL Shortener
+  </div>
+  <div class="card-body">
+    <h5 class="card-title"> 
       <% if (typeof id !== 'undefined' && id){ %>
-        <p><strong>URL Generated:</strong> https://urltools.onrender.com/url/<%= id %></p>
-        <% } %>
-      <div class="Urlform">
-        <form id="urlForm" method="POST" action="/url">
+      <a href="https://urltools.onrender.com/url/<%= id %>" >https://urltools.onrender.com/url/<%= id %></a>
+
+       <% } %>
+    </h5>
+            <form id="urlForm" method="POST" action="/url">
           <div class="mb-3">
             <label for="url">Enter your Original URL</label><br>
-            <input type="text" class="form-control" name="url" placeholder="http://example.com" />
+            <input type="text" class="form-control" name="url" placeholder="http://example.com" autofocus required />
           </div>
          
-          <button class="btn w-100" type="button" onclick="checkLoginAndSubmit('urlForm')">Generate</button>
+          <button class="btn btn-outline-secondary w-100" type="button" onclick="checkLoginAndSubmit('urlForm')">Generate</button>
           
-        </form>
-      </div>
+           </form>
 
-      <div class="analytics-box mt-4">
+       <div class="analytics-box mt-4">
         
           <table class="table table-bordered table-striped">
             <thead class="table-headings">
@@ -47,24 +67,97 @@
             </tbody>
             <% } %>
           </table>
+      </div>          
+  </div>
+  <div class="card-footer text-body-secondary">
+   https://urltools.onrender.com/url/
+  </div>
+</div>
+
+</div>
+
+ <div class="fs-3 fw-bold m-4" style="color: white;">FAQ:</div>
+
+<div class="accordion" id="accordionExample">
+  <div class="accordion-item">
+    <h2 class="accordion-header">
+      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+      <b>Is This Tool Compatible with All URLs?</b>
+      </button>
+    </h2>
+    <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+      <div class="accordion-body">
+        <strong>Mostly,Yes we help you to make  All your URL's short</strong> &nbsp;But  we can’t shorten links beyond our own base path (https://urltools.onrender.com/url/), our tool is ideal for trimming lengthy URLs from platforms like LinkedIn, Google Drive, YouTube, or job application portals—making them clean, shareable, and professional.
       </div>
     </div>
+  </div>
+  <div class="accordion-item">
+    <h2 class="accordion-header">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+         <b>Is My Data Safe When I Use This Tool?</b>
+      </button>
+    </h2>
+    <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+      <div class="accordion-body">
+         Absolutely. We do not store or share your personal information. Your URLs are only saved to generate short links or QR codes, and visit data is used solely for basic analytics—nothing more. We prioritize privacy and security to ensure a trustworthy experience.
+      </div>
+    </div>
+  </div>
+  <div class="accordion-item">
+    <h2 class="accordion-header">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+         <b>Can I Use These QR Codes Anywhere?</b>
+      </button>
+    </h2>
+    <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+      <div class="accordion-body">
+         Yes! The QR codes generated are high-quality and compatible with all standard QR scanners—from smartphones to tablets. Use them on printed materials, websites, social media, or presentations for instant and easy access to your links.
 
-    <div class="qrcode shadow-sm bg-white p-4">
-      <h1 class="text-center mb-4">QR Code Generator</h1>
-      <div class="QRform">
+      </div>
+    </div>
+  </div>
+</div>
+
+</main>
+<section class="mt-5" style="background-color: #1E272E; min-height: 100vh;">
+   <div class="d-flex flex-wrap justify-content-around">
+
+  <div class="card text-center mt-5">
+  <div class="card-header">
+   QR Code Generator
+  </div>
+  <div class="card-body">
         <form id="qrForm"  action="/qrcode" method="POST">
           <div class="mb-3">
             <label for="url">Enter URL</label><br>
             <input type="text" class="form-control" id="url" name="url" placeholder="https://example.com" required>
           </div>
-          <button class="btn w-100" type="button" onclick="checkLoginAndSubmit('qrForm')">Generate QR Code</button>
+          <button class="btn btn-outline-secondary w-100" type="button" onclick="checkLoginAndSubmit('qrForm')">Generate QR Code</button>
         </form>
-      </div>
-    </div>
-
   </div>
-</main>
+
+</div>
+
+<div class="mt-5">
+ 
+  <span style="font-size: 70px; ; color: #7C90F8;" class="box-shadow fw-bold">Make Your URL</span>
+  <br>
+  <span style="font-size: 50px; ; color: #fff;" class="box-shadow fw-bold mb-4">Instantly Scannable</span>
+
+  <p class="fs-4 mt-5" style="color: #AAB4BE;">
+We convert your URLs into scannable, high-quality QR codes.<br>
+Simply enter a valid URL such as:<br>
+<span style="color: white;">https://www.your-domainname.com/</span><br>
+
+We’ll instantly generate a QR code for you — ready to share, scan, and use anywhere.<br>
+
+Seamless access, modern convenience.<br>
+  </p>
+</div>
+  </div>
+
+
+</section>
 <script>
   function checkLoginAndSubmit(formId) {
   

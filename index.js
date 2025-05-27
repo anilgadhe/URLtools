@@ -17,6 +17,7 @@ const PORT =process.env.PORT|| 8000;
 
 
 app.get('/favicon.ico', (req, res) => res.status(204).end());
+app.use(express.static(path.join(__dirname)));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
