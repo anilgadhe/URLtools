@@ -19,9 +19,10 @@
                 </div>
 
                 <!-- Password Field -->
-                <div class="mb-4">
-                    <label class="form-label" for="password">Password:</label>
+                <div class="mb-4 ">
+                    <label class="form-label "  for="password">Password:</label>
                     <input class="form-control" type="password" id="password" name="password" required>
+                    <button onclick="ShowClick()" type="button" id="btnShow" class="bi bi-eye-slash   text-center"></button>
                 </div>
 
                 <!-- Submit Button -->
@@ -29,4 +30,14 @@
             </form>
         </div>
     </div>
+
+<script>
+    function ShowClick(){
+    let pwd =document.getElementById("password");
+    let Btn =document.getElementById("btnShow");
+
+    Btn.className=(Btn.className === "bi bi-eye ")?"bi bi-eye-slash  " :"bi bi-eye ";
+    pwd.type=(pwd.type === "password")?"text":"password";
+  }
+  </script>
 </body>
