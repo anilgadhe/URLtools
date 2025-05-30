@@ -23,9 +23,9 @@
           >
         </div>
 
-        <div class="mb-3 row" >
-          <label for="password" class="form-label col-12 col-lg-12">Password</label>
-         <div class="col-11 col-lg-11  ">
+        <div class="mb-3 " >
+          <label for="password" class="form-label">Password</label>
+         <div class="input-group">
           <input 
             type="password" 
             class="form-control" 
@@ -34,9 +34,10 @@
             required 
             autocomplete="new-password"
             
-          >          
+          >  
+          <button onclick="ShowClick()" type="button" id="btnShow" class="btn bi bi-eye-slash  text-center"></button>        
          </div>
-           <button onclick="ShowClick()" type="button" id="btnShow" class="bi bi-eye-slash col-1  col-lg-1 text-center"></button>
+           
         </div>
 
         <button type="submit" class="btn btn-primary w-100">Login</button>
@@ -49,7 +50,7 @@
     let pwd =document.getElementById("password");
     let Btn =document.getElementById("btnShow");
 
-    Btn.className=(Btn.className === "bi bi-eye col-1  col-lg-1 ")?"bi bi-eye-slash col-1  col-lg-1 " :"bi bi-eye col-1  col-lg-1 ";
+    Btn.className=(Btn.className === "bi bi-eye btn ")?"bi bi-eye-slash btn " :"bi bi-eye btn ";
     pwd.type=(pwd.type === "password")?"text":"password";
   }
   </script>
